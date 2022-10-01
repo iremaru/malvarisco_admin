@@ -10,8 +10,6 @@ app.use( express.urlencoded( { extended: true } ) );
 app.use( cors( corsOptions ) );
 
 const db = require('./app/model');
-//const productionMode = true;
-
 
 let productionMode = true;
 process.argv.forEach( (val, i, array) => { if( val  == 'devmode' ) productionMode = false; });

@@ -16,7 +16,7 @@ These instructions will get you a copy of the project up and running on your loc
 git clone 'path'
 ```
 
-2️⃣ You will need Node >16.13.0 to run the server either in the backend (api to database) as in the frontend (web). //TODO:
+2️⃣ You will need Node >16.13.0 to run the server either in the backend (api to database) as in the frontend (web).
 
 If you are a window user, you should download it at [nodejs.org](https://nodejs.org/es/download/).
 
@@ -26,7 +26,7 @@ If, instead, you are a linux user, you would download it from terminal.
 apk add nodejs npm
 ```
 
-Finally, if you are a ios user, you can buy it in the app-store. 🤡
+Finally, if you are an IOS user, you can buy it in the app-store. 🤡
 
 Sorry, it's a bad joke. You can download it at [nodejs.org](https://nodejs.org/es/download/), like any other window user.
 
@@ -121,6 +121,7 @@ If it's first time running the project, you need to set the development mode in 
 cd ../backend/ # <= if you are in root directory
 npm start devmode # <= if this is your fist time running the project or you want to drop your data.
 ```
+
 Next time you want to run the database server:
 
 ```powershell
@@ -134,7 +135,7 @@ Now you will need to run the frontend. To do this, you will need other terminal.
 
 Example:
 
-![VSC Terminals](../repository-rsc/img/wiki_vsc-terminals.png)
+![VSC Terminals](./repository-rsc/img/wiki_vsc-terminals.png)
 
 Now, in your frontend terminal you have to run the frontend:
 
@@ -145,19 +146,25 @@ npm start
 
 There is it. You have had to wait a little bit, but it will be done finally, and in the terminal you will see the port where your website will be running.
 
-![Compiled successfully](../repository-rsc/img/wiki_vsc-terminal_comiled-successfully.png)
+![Compiled successfully](./repository-rsc/img/wiki_vsc-terminal_comiled-successfully.png)
 
 Go on and try it out in your preferred web browser:
 
+![Home page screenshot](./repository-rsc/img/wiki_web-screenshot_homePage.png)
 
+In order to see the data you need to click over the eye icon.
+
+![How to see data](./repository-rsc/img/wiki_web-screenshot_seeData.png)
 
 ## 🚧 4. Built With
 
 * [Ionic](https://ionicframework.com/) - SDK
 * [Angular](https://angular.io/) - FrontEnd Framework
 * [Express](https://expressjs.com/) - BackEnd Framework
-* [Sequelize]() - ORM
-* [MySQL]() - BD
+* [Sequelize](https://sequelize.org/) - ORM
+* [MySQL](https://www.mysql.com/) - BD
+
+**Frontpage image**: [Farm Vectores, by Vecteezy](https://es.vecteezy.com/vectores-gratis/farm).
 
 ## 👩🏻‍🌾 7. Authors
 
@@ -165,9 +172,9 @@ Go on and try it out in your preferred web browser:
 
 ## 📃 8. License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License.
 
 ## 🧾 9. Acknowledgments
 
-* This project is the result of "Multimedia and Mobile development" subject's activity, as part of DAM course (*Cross-platform development training course*) given by Tiburcio Cruz, aka [Tcrurav](https://github.com/tcrurav) from [I.E.S. El Rincón](ieselrincon.org/), in [Canary Islands](https://en.wikipedia.org/wiki/Canary_Islands).
+* This project is the result of "Multimedia and Mobile development" subject's activity, as part of DAM course (_Cross-platform development training course_) given by Tiburcio Cruz, aka [Tcrurav](https://github.com/tcrurav) from [I.E.S. El Rincón](ieselrincon.org/), in [Canary Islands](https://en.wikipedia.org/wiki/Canary_Islands).
 * This project was inpired by my **mom's vegetable garden, 💚Malva-risco💚** and her needs for an admin system.
