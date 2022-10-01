@@ -1,0 +1,32 @@
+<ion-header [translucent]="true">
+  <app-header title="Crear una nueva parte del vegetal" [canGoBack]="true" ></app-header>
+</ion-header>
+  
+<ion-content>
+  <ion-list lines="full">
+    <form [formGroup]="vegetablePartForm" (ngSubmit)="onSubmit()">
+      <ion-item>
+        <ion-label position="floating">Nombre</ion-label>
+        <ion-input formControlName="name" type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Descripción</ion-label>
+        <ion-input formControlName="description" type="text" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="floating">Ejemplos</ion-label>
+        <ion-input formControlName="examples" type="text" required>
+        </ion-input>
+      </ion-item>
+
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="success" expand="block">Añadir</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </ion-list>
+</ion-content>

@@ -1,0 +1,173 @@
+# Malva-Risco Adminpage
+
+Web admin for _Malva-Risco farm_, in Tenerife island. 💚
+
+## 🏃🏻‍♀️ 1. Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+👁‍🗨 See **deployment** for notes on how to deploy the project on a live system.
+
+### 🏃🏻‍♀️📝 1.1 Prerequisites and installing
+
+1️⃣ If you haven't Git in your local machine, I hardly encorage you to install it. Then you would clone the whole repository.
+
+```bash
+git clone 'path'
+```
+
+2️⃣ You will need Node >16.13.0 to run the server either in the backend (api to database) as in the frontend (web). //TODO:
+
+If you are a window user, you should download it at [nodejs.org](https://nodejs.org/es/download/).
+
+If, instead, you are a linux user, you would download it from terminal.
+
+```bash
+apk add nodejs npm
+```
+
+Finally, if you are a ios user, you can buy it in the app-store. 🤡
+
+Sorry, it's a bad joke. You can download it at [nodejs.org](https://nodejs.org/es/download/), like any other window user.
+
+3️⃣ It's not mandatory to install Angular Cli globally, but you will need at least in the project.
+
+>Install globally:
+
+```powershell
+npm i -g @angular/cli
+```
+
+>Install locally:
+
+```powershell
+cd frontend/
+npm i @angular/cli
+```
+
+4️⃣ Install ionic
+
+```powershell
+npm install -g @ionic/cli
+```
+
+5️⃣ Create an local database
+
+You can use [wamp](https://www.wampserver.com/en/), [xampp](https://www.apachefriends.org/es/index.html), or whatever tool of your preference.
+
+❗❗ Your database must be named **'malvariscoDB'** in order to be recognized by the backend.
+
+6️⃣ Make a new file inside the backend directory called db.config.js:
+
+```powershell
+new-item /backend/config/db.config.js
+```
+
+If you are using Visual Studio Code, you can create and edit the file at once writing in your terminal:
+
+```powershell
+code /backend/config/db.config.js
+```
+
+7️⃣ Inside the file include the following info:
+
+```js
+module.exports = {
+    HOST: 'localhost',
+    USER: 'userName', //❗❗ Fill it with your database user
+    PASSWORD: 'userPassword', //❗❗ Fill it with your database user password
+    DB: 'malvariscoDB', //❗❗ If you prefer to change your database name, then you must change it here too.
+    dialect: 'mysql',
+    pool: {
+        max: 5,
+        min: 0,
+        acquire: 30000,
+        idle: 10000,
+    }
+};
+```
+
+8️⃣ Init node in the backend
+
+```powershell
+cd backend/
+npm install
+```
+
+9️⃣ Init node in the frontend
+
+```powershell
+cd ../frontend/
+npm install
+```
+
+### 🏃🏻‍♀️🔧 1.2 Testing the API
+
+You can test the backend is running, and the API is live with Postman.
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/23242060-77d96949-b2cc-4a6d-bd2e-68eca7c5c715?action=collection%2Ffork&collection-url=entityId%3D23242060-77d96949-b2cc-4a6d-bd2e-68eca7c5c715%26entityType%3Dcollection%26workspaceId%3Df0ac5b98-26b0-4d2f-8b6e-b3cc58c39e87)
+
+## 🚚 3. Deployment
+
+Now, I'm sure you want to see the webpage by your own.
+
+First, we are going to raise the API:
+
+If it's first time running the project, you need to set the development mode in order to create the database tables.
+
+❗❗ Whenever you need to drop the database data, repeat this step. Avoid if you **do not want** to lose your data.
+
+```powershell
+cd ../backend/ # <= if you are in root directory
+npm start devmode # <= if this is your fist time running the project or you want to drop your data.
+```
+Next time you want to run the database server:
+
+```powershell
+cd ../backend/ # <= if you are in root directory
+npm start
+```
+
+If you want to stop the database server, you must press "ctrl + c" in the terminal.
+
+Now you will need to run the frontend. To do this, you will need other terminal. If you are using Visual Studio Code, you can have as much as you want, and named it to identify it clearly.
+
+Example:
+
+![VSC Terminals](../repository-rsc/img/wiki_vsc-terminals.png)
+
+Now, in your frontend terminal you have to run the frontend:
+
+```powershell
+cd ../frontend/ # <= if you are in root directory
+npm start
+```
+
+There is it. You have had to wait a little bit, but it will be done finally, and in the terminal you will see the port where your website will be running.
+
+![Compiled successfully](../repository-rsc/img/wiki_vsc-terminal_comiled-successfully.png)
+
+Go on and try it out in your preferred web browser:
+
+
+
+## 🚧 4. Built With
+
+* [Ionic](https://ionicframework.com/) - SDK
+* [Angular](https://angular.io/) - FrontEnd Framework
+* [Express](https://expressjs.com/) - BackEnd Framework
+* [Sequelize]() - ORM
+* [MySQL]() - BD
+
+## 👩🏻‍🌾 7. Authors
+
+* **Iremaru** - _Initial work_ - [GitHub](https://github.com/iremaru)
+
+## 📃 8. License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## 🧾 9. Acknowledgments
+
+* This project is the result of "Multimedia and Mobile development" subject's activity, as part of DAM course (*Cross-platform development training course*) given by Tiburcio Cruz, aka [Tcrurav](https://github.com/tcrurav) from [I.E.S. El Rincón](ieselrincon.org/), in [Canary Islands](https://en.wikipedia.org/wiki/Canary_Islands).
+* This project was inpired by my **mom's vegetable garden, 💚Malva-risco💚** and her needs for an admin system.
