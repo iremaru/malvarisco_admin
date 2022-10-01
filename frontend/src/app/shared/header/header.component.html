@@ -1,0 +1,6 @@
+<ion-toolbar>
+  <ion-title *ngIf="canGoBack" color="primary">{{title}}</ion-title>
+  <ion-buttons *ngIf="canGoBack" slot="start" >
+    <ion-back-button defaultHref="/"  text=""></ion-back-button>
+  </ion-buttons>
+</ion-toolbar>

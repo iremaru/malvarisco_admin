@@ -1,0 +1,106 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+
+.page{
+    background-color: #6d8d7a;
+    
+    .text {
+        margin-left: 18px;
+        
+        &.text_section-title{
+            color: var(--ion-color-primary);
+
+        }
+        
+        &.text_button{
+            margin-left: 0;
+            margin-right: 1rem;
+            font-weight: bolder;
+            text-transform: uppercase;
+            
+            &.text_button_success{
+                color: var(--ion-color-success-contrast);
+                
+            }
+            
+        }
+
+        &.text_vegetable-part_name{
+            font-weight: bolder;
+            color: var(--ion-color-primary);
+
+            &:before{
+                content: "🌼 ";
+            }
+            &:after{
+                content: " 🌼";
+            }
+        }
+
+        &.text_vegetable-part_description{
+            color: var(--ion-color-dark);
+        }
+
+        &.text_vegetable-part_examples{
+            font-style: italic;
+            color: var(--ion-color-secondary-tint);
+            margin-left: 2rem;
+
+            &:before{
+                content: "🌿 «";
+            }
+            
+            &:after{
+                content: "»";
+            }
+        }
+
+    }
+    
+    .button {
+
+        &.button-secondary_create{
+            margin-right: 2rem;
+        }
+
+        &.button_centered {
+            margin-right: auto;
+            margin-left: auto;
+            display: block;
+        }
+    }
+
+    .header{}
+    
+    .section{
+        margin-bottom: 5rem;
+    }
+
+    .footer{}
+}

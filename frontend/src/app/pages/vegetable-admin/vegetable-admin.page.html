@@ -1,0 +1,95 @@
+<ion-header>
+  <app-header title="Administrador" [canGoBack]="true"></app-header>
+</ion-header>
+
+<ion-content class="page">
+
+  <!--Vegetable parts section-->
+  <div class="section section_vegetable-parts">
+    
+    <ion-toolbar>
+      <h2 class="text text_section-title">Partes vegetales</h2>
+      <ion-buttons slot="end">
+        <ion-button fill="solid" shape="round" (click)="showVegetablePartSection = !showVegetablePartSection"  color="secondary">
+          <ion-icon slot="icon-only" [name]="showVegetablePartSection ? 'eye-off' : 'eye' "></ion-icon>
+        </ion-button>
+        <ion-button class="button button-secondary_create" fill="solid" color="primary" slot='secondary' [routerLink]="['/create-vegetable-part/']" shape="round">
+          <ion-icon slot="start" name="add"></ion-icon>
+          <span 
+            class="text text_button text_button_success">Crear</span>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    
+    <ion-list  *ngIf="showVegetablePartSection">
+      <ion-item *ngFor="let part of vegetablePart">
+        
+        <ion-label>
+          <p class="text text_vegetable-part_name" >{{part.name | titlecase}}</p>
+          <p class="text text_vegetable-part_description">{{part.description}}</p>
+          <p *ngIf="part.examples !== ''" class="text text_vegetable-part_examples">{{part.examples}}</p>
+        </ion-label>
+  
+        <div>
+          <ion-button color="secondary" shape="round" [routerLink]="['/update-vegetable-part/']" [queryParams]="{ id: part.id }">
+            <ion-icon name="create" ></ion-icon>
+          </ion-button>
+          <ion-button color="primary" shape="round" (click)="updateVegetablePart(part)">
+            <ion-icon name="pencil" ></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" shape="round" (click)="askDeleteConfirmation(part)">
+            <ion-icon name="trash" color="danger"></ion-icon>
+          </ion-button>
+        </div>
+
+      </ion-item>
+    </ion-list>
+    
+  </div>
+  
+  <!--Vegetable assets section-->
+  <div class="section section_vegetable-assets">
+
+    <ion-toolbar>
+      <h2 class="text text_section-title">Vegetales en haber</h2>
+      <ion-buttons slot="end">
+        
+        <ion-button fill="solid" shape="round" (click)="showVegetableAssetsSection = !showVegetableAssetsSection"  color="secondary">
+          <ion-icon slot="icon-only" [name]="showVegetableAssetsSection ? 'eye-off' : 'eye' "></ion-icon>
+        </ion-button>
+
+        <ion-button class="button button-secondary_create" fill="solid" color="primary" slot='secondary' [routerLink]="['/create-vegetable-part/']" shape="round">
+          <ion-icon slot="start" name="add"></ion-icon>
+          <span class="text text_button text_button_success">Nuevo</span>
+        </ion-button>
+
+      </ion-buttons>
+    </ion-toolbar>
+    
+    <ion-list  *ngIf="showVegetableAssetsSection">
+      <ion-item *ngFor="let part of vegetablePart">
+        
+        <ion-label>
+          <p class="text text_vegetable-part_name" >{{part.name | titlecase}}</p>
+          <p class="text text_vegetable-part_description">{{part.description}}</p>
+          <p *ngIf="part.examples !== ''" class="text text_vegetable-part_examples">{{part.examples}}</p>
+        </ion-label>
+  
+        <div>
+          <ion-button color="secondary" shape="round" [routerLink]="['/update-vegetable-part/']" [queryParams]="{ id: part.id }">
+            <ion-icon name="create" ></ion-icon>
+          </ion-button>
+          <ion-button color="primary" shape="round" (click)="updateVegetablePart(part)">
+            <ion-icon name="pencil" ></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" shape="round" (click)="askDeleteConfirmation(part)">
+            <ion-icon name="trash" color="danger"></ion-icon>
+          </ion-button>
+        </div>
+
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+</ion-content>
