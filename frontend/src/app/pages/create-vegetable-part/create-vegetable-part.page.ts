@@ -3,7 +3,7 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-vegetable-part',
@@ -19,7 +19,8 @@ export class CreateVegetablePartPage implements OnInit {
     private navController: NavController,
     public formBuilder: FormBuilder,
     private zone: NgZone,
-    private vegetablePartCRUDservice: VegetablePartCRUDService
+    private vegetablePartCRUDservice: VegetablePartCRUDService,
+    private alertController: AlertController
     ) {
     this.vegetablePartForm = this.formBuilder.group({
       name: [''],
@@ -32,6 +33,7 @@ export class CreateVegetablePartPage implements OnInit {
 
   onSubmit() {
     if (!this.vegetablePartForm.valid) {
+      this.presentInvalidFormAlert();
       return false;
     } else {
       this.vegetablePartCRUDservice.createVegetablePart(this.vegetablePartForm.value)
@@ -42,5 +44,16 @@ export class CreateVegetablePartPage implements OnInit {
           });
         });
     }
+  }
+
+  async presentInvalidFormAlert() {
+    const alert = await this.alertController.create({
+      header: 'Atención',
+      subHeader: 'Faltan campos obligatorios',
+      message: 'No olvides rellenar todos los campos marcados con asteríscos.',
+      buttons: ['Entendido'],
+    });
+
+    await alert.present();
   }
 }

@@ -30,8 +30,30 @@
 .page{
     background-color: #6d8d7a;
     
+    .img {
+        &.img_cover{
+            max-width: 500px;
+            margin: auto;
+        }
+    }
+
     .text {
         margin-left: 18px;
+
+        &.text_redAsterisk{
+            margin-left: 0;
+            color: red;
+            font-weight: bolder;
+        }
+
+        &.dev_alert {
+            background-color: rgb(43, 42, 44);
+            color: yellow;
+            text-align: center;
+            border-radius: 15px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
         
         &.text_section-title{
             color: var(--ion-color-primary);
@@ -44,9 +66,11 @@
             font-weight: bolder;
             text-transform: uppercase;
             
+            &.text_button_centered{
+                font-size: medium;
+            }
             &.text_button_success{
                 color: var(--ion-color-success-contrast);
-                
             }
             
         }

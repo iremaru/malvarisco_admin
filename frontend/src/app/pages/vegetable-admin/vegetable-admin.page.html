@@ -20,7 +20,7 @@
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
-    
+    <p class="text" *ngIf="vegetablePart.length < 1">Nada que mostrar. Prueba a crear una nueva parte vegetal.</p>
     <ion-list  *ngIf="showVegetablePartSection">
       <ion-item *ngFor="let part of vegetablePart">
         
@@ -31,9 +31,9 @@
         </ion-label>
   
         <div>
-          <ion-button color="secondary" shape="round" [routerLink]="['/update-vegetable-part/']" [queryParams]="{ id: part.id }">
+          <!-- <ion-button color="secondary" shape="round" [routerLink]="['/update-vegetable-part/']" [queryParams]="{ id: part.id }">
             <ion-icon name="create" ></ion-icon>
-          </ion-button>
+          </ion-button> -->
           <ion-button color="primary" shape="round" (click)="updateVegetablePart(part)">
             <ion-icon name="pencil" ></ion-icon>
           </ion-button>
@@ -57,17 +57,17 @@
         <ion-button fill="solid" shape="round" (click)="showVegetableAssetsSection = !showVegetableAssetsSection"  color="secondary">
           <ion-icon slot="icon-only" [name]="showVegetableAssetsSection ? 'eye-off' : 'eye' "></ion-icon>
         </ion-button>
-
-        <ion-button class="button button-secondary_create" fill="solid" color="primary" slot='secondary' [routerLink]="['/create-vegetable-part/']" shape="round">
+        
+        <ion-button class="button button-secondary_create" fill="solid" color="primary" slot='secondary' [routerLink]="['']" shape="round" disabled="true">
           <ion-icon slot="start" name="add"></ion-icon>
           <span class="text text_button text_button_success">Nuevo</span>
         </ion-button>
 
       </ion-buttons>
     </ion-toolbar>
-    
     <ion-list  *ngIf="showVegetableAssetsSection">
-      <ion-item *ngFor="let part of vegetablePart">
+      <p class="text dev_alert">🚧 Sección aún en desarrollo. Por favor, espere a una nueva actualización para poder usarla. 🚧</p>
+    <!--<ion-item *ngFor="let part of vegetablePart">
         
         <ion-label>
           <p class="text text_vegetable-part_name" >{{part.name | titlecase}}</p>
@@ -87,7 +87,7 @@
           </ion-button>
         </div>
 
-      </ion-item>
+      </ion-item>-->
     </ion-list>
 
   </div>
