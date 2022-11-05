@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
-import { VegetablePart, VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
+import { IVegetablePart } from 'src/app/interfaces/IVegetablePart';
+import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
 
 @Component({
   selector: 'app-vegetable-admin',
@@ -11,7 +12,7 @@ export class VegetableAdminPage implements OnInit {
 
   showVegetablePartSection: boolean;
   showVegetableAssetsSection: boolean;
-  vegetablePart: any[] = [];
+  vegetablePart: IVegetablePart[] = [];
 
   constructor(
     private vegetablePartService: VegetablePartCRUDService,
@@ -27,90 +28,98 @@ export class VegetableAdminPage implements OnInit {
     this.getAllVegetableParts();
   }
 
-  getAllVegetableParts() {
-    this.vegetablePartService.getVegetableParts().subscribe(
-      resp => { this.vegetablePart = resp as VegetablePart[]; }
-    );
-  }
+  //#region VEGETABLE PART
 
-  removePart(vegetablePart){
-      this.vegetablePartService.deleteVegetablePart(vegetablePart.id)
-      .subscribe(() => {
-          this.ionViewDidEnter();
-        }
+    getAllVegetableParts() {
+      this.vegetablePartService.getVegetableParts().subscribe(
+        resp => { this.vegetablePart = resp as IVegetablePart[]; }
       );
-  }
+    }
 
-	updatePart(vegetablePart) {
-		this.vegetablePartService
-      .updateVegetablePart(vegetablePart.id, vegetablePart).subscribe();
-	}
+    removePart(vegetablePart){
+        this.vegetablePartService.deleteVegetablePart(vegetablePart.id)
+        .subscribe(() => {
+            this.ionViewDidEnter();
+          }
+        );
+    }
 
-  async askDeleteConfirmation(vegetablePart) {
-    const alert = await this.alertController.create({
-      header: `Eliminar ${vegetablePart.name}`,
-      subHeader: 'Esta acción es irreversible',
-      message: `¿Está segura/o de que quiere eliminar ${vegetablePart.name}?`,
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {},
-        },
-        {
-          text: 'Sí',
-          role: 'destructive',
-          handler: () => this.removePart(vegetablePart),
-        },
-      ],
-    });
+    updatePart(vegetablePart) {
+      this.vegetablePartService
+        .updateVegetablePart(vegetablePart.id, vegetablePart).subscribe();
+    }
 
-    await alert.present();
-  }
-
-  async updateVegetablePart(vegetablePart) {
-    const alert = await this.alertController.create({
-      header: `Modificar ${vegetablePart.name}`,
-      inputs: [
-        {
-          name: 'name',
-          placeholder: vegetablePart.name,
-          value: vegetablePart.name,
-        },
-        {
-          label: 'Descripción',
-          name: 'description',
-          placeholder: vegetablePart.description,
-          value: vegetablePart.description
-        },
-        {
-          name: 'examples',
-          placeholder: vegetablePart.examples,
-          value: vegetablePart.examples,
-        },
-      ],
-      buttons: [
-        {
-          text: 'Actualizar',
-          role: 'confirm',
-          handler: ( data ) => {
-            if( data.name !== '')
-            {
-              vegetablePart.name = data.name;
-              vegetablePart.description = data.description;
-              vegetablePart.examples = data.examples;
-              this.updatePart(vegetablePart);
-            } else {
-              this.presentToastFieldRequired('middle', 'nombre');
-              return false;
-            }
+    async askDeleteConfirmation(vegetablePart) {
+      const alert = await this.alertController.create({
+        header: `Eliminar ${vegetablePart.name}`,
+        subHeader: 'Esta acción es irreversible',
+        message: `¿Está segura/o de que quiere eliminar ${vegetablePart.name}?`,
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {},
           },
-        },
-      ],
-    });
+          {
+            text: 'Sí',
+            role: 'destructive',
+            handler: () => this.removePart(vegetablePart),
+          },
+        ],
+      });
+  
+      await alert.present();
+    }
 
-    await alert.present();
-  }
+    async updateVegetablePart(vegetablePart) {
+      const alert = await this.alertController.create({
+        header: `Modificar ${vegetablePart.name}`,
+        inputs: [
+          {
+            name: 'name',
+            placeholder: vegetablePart.name,
+            value: vegetablePart.name,
+          },
+          {
+            label: 'Descripción',
+            name: 'description',
+            placeholder: vegetablePart.description,
+            value: vegetablePart.description
+          },
+          {
+            name: 'examples',
+            placeholder: vegetablePart.examples,
+            value: vegetablePart.examples,
+          },
+        ],
+        buttons: [
+          {
+            text: 'Actualizar',
+            role: 'confirm',
+            handler: ( data ) => {
+              if( data.name !== '')
+              {
+                vegetablePart.name = data.name;
+                vegetablePart.description = data.description;
+                vegetablePart.examples = data.examples;
+                this.updatePart(vegetablePart);
+              } else {
+                this.presentToastFieldRequired('middle', 'nombre');
+                return false;
+              }
+            },
+          },
+        ],
+      });
+  
+      await alert.present();
+    }
+
+  //#endregion
+
+  //#region VEGETABLE
+
+  //#endregion
 
   async presentToastFieldRequired(position: 'top' | 'middle' | 'bottom', textRequired: string) {
     const toast = await this.toastController.create({

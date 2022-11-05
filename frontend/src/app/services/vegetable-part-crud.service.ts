@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-
-export class VegetablePart {
-  _id: number;
-  name: string;
-  description: string;
-  examples: string;
-}
+import { IVegetablePart } from '../interfaces/IVegetablePart';
 
 @Injectable({
   providedIn: 'root'
@@ -24,24 +18,24 @@ export class VegetablePartCRUDService {
 
   getVegetableParts =  () => this.httpClient.get(this.endpoint);
 
-  createVegetablePart( vegetablePart: VegetablePart): Observable<any> {
-    return this.httpClient.post<VegetablePart>( this.endpoint, vegetablePart );
+  createVegetablePart( vegetablePart: IVegetablePart): Observable<any> {
+    return this.httpClient.post<IVegetablePart>( this.endpoint, vegetablePart );
   }
 
 
-  getVegetablePart(id: number): Observable<VegetablePart> {
-    return this.httpClient.get<VegetablePart>(this.endpoint + id );
+  getVegetablePart(id: number): Observable<IVegetablePart> {
+    return this.httpClient.get<IVegetablePart>(this.endpoint + id );
   }
 
-  updateVegetablePart(id: number, vegetablePart: VegetablePart): Observable<any> {
+  updateVegetablePart(id: number, vegetablePart: IVegetablePart): Observable<any> {
     return this.httpClient.put(this.endpoint + id, JSON.stringify( vegetablePart ) , this.httpOptions);
   }
   // updateVegetablePart(id: number, vegetablePart: VegetablePart): Observable<any> {
   //   return this.httpClient.put(this.endpoint + id, JSON.stringify( {...vegetablePart} ) , this.httpOptions);
   // }
 
-  deleteVegetablePart(id: number): Observable<VegetablePart> {
-    return this.httpClient.delete<VegetablePart>(this.endpoint + '/' + id, this.httpOptions);
+  deleteVegetablePart(id: number): Observable<IVegetablePart> {
+    return this.httpClient.delete<IVegetablePart>(this.endpoint + '/' + id, this.httpOptions);
   }
 
 
