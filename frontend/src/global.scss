@@ -35,6 +35,25 @@
             max-width: 500px;
             margin: auto;
         }
+
+        &.img_vegetable{
+            max-width: 50px;
+            max-height: 50px;
+        }
+    }
+
+    .imgFrame{
+        &.imgFrame_vegetable{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 50px;
+            min-width: 50px;
+            max-height: 50px;
+            min-height: 50px;
+            background-color: #2b5c31;
+            border-radius: 2px 0 0 10px;
+        }
     }
 
     .text {
@@ -124,6 +143,17 @@
     
     .section{
         margin-bottom: 5rem;
+
+        &.section_vegetable-assets{
+            .item_description{
+                display: flex;
+                background-color: rgb(202 237 206);
+                align-items: center;
+                margin-left: 35px;
+                margin-right: 25px;
+                border-radius: 15px 0 0 5px;
+            }
+        }
     }
 
     .footer{}

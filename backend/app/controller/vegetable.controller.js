@@ -62,7 +62,8 @@ exports.update = (req, res) => {
 
     vegetableModel.update( req.body, {
         where: { id: id }
-    }).then( num => {
+    })
+    .then(num => {
         if (num == 1) {
             res.send({
                 message: "Vegetable was updated successfully."

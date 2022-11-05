@@ -33,3 +33,10 @@ npm-debug.log*
 
 *.code-workspace
 db.config.js
+
+#IMAGES
+*.png
+*.jpg
+*.gif
+*.webp
+!sample.webp

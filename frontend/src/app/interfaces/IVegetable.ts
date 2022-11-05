@@ -1,5 +1,5 @@
 export interface IVegetable {
-    _id: number;
+    id: number;
     vegetableType: number;
     vegetablePart: number;
     description: string;

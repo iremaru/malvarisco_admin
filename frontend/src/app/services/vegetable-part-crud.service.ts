@@ -16,7 +16,7 @@ export class VegetablePartCRUDService {
   };
   constructor( private httpClient: HttpClient) { }
 
-  getVegetableParts =  () => this.httpClient.get(this.endpoint);
+  getVegetableParts =  (): Observable<IVegetablePart[]> => this.httpClient.get<IVegetablePart[]>(this.endpoint);
 
   createVegetablePart( vegetablePart: IVegetablePart): Observable<any> {
     return this.httpClient.post<IVegetablePart>( this.endpoint, vegetablePart );

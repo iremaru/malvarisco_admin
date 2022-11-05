@@ -22,7 +22,11 @@ const routes: Routes = [
   {
     path: 'update-vegetable-part',
     loadChildren: () => import('./pages/update-vegetable-part/update-vegetable-part.module').then( m => m.UpdateVegetablePartPageModule)
+  },  {
+    path: 'create-vegetable',
+    loadChildren: () => import('./pages/create-vegetable/create-vegetable.module').then( m => m.CreateVegetablePageModule)
   },
+
 ];
 
 @NgModule({

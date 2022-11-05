@@ -1,6 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 
-import { Router } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
 import { AlertController, NavController } from '@ionic/angular';
@@ -15,7 +14,6 @@ export class CreateVegetablePartPage implements OnInit {
   vegetablePartForm: FormGroup;
 
   constructor(
-    private router: Router,
     private navController: NavController,
     public formBuilder: FormBuilder,
     private zone: NgZone,

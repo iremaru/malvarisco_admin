@@ -16,10 +16,16 @@ export class VegetableCRUDService {
   };
   constructor( private httpClient: HttpClient) { }
 
-  getVegetables =  () => this.httpClient.get(this.endpoint);
+  getVegetables = (): Observable<IVegetable[]> => this.httpClient.get<IVegetable[]>(this.endpoint);
 
-  createVegetable( vegetable: IVegetable): Observable<any> {
-    return this.httpClient.post<IVegetable>( this.endpoint, vegetable );
+  createVegetable(vegetable: IVegetable, foto: Blob): Observable<any> {
+    const formData = new FormData();
+    formData.append( 'specieTypeID', vegetable.vegetableType.toString() );
+    formData.append( 'vegetablePartID', vegetable.vegetablePart.toString() );
+    formData.append( 'description', vegetable.description );
+    formData.append( 'file', foto );
+
+    return this.httpClient.post<IVegetable>( this.endpoint, formData );
   }
 
   getVegetable(id: number): Observable<IVegetable> {

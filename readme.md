@@ -202,17 +202,17 @@ In order to see the data you need to click over the eye icon.
 
 ## 🚧 4. Built With
 
-* [Ionic](https://ionicframework.com/) - SDK
-* [Angular](https://angular.io/) - FrontEnd Framework
-* [Express](https://expressjs.com/) - BackEnd Framework
-* [Sequelize](https://sequelize.org/) - ORM
-* [MySQL](https://www.mysql.com/) - BD
+- [Ionic](https://ionicframework.com/) - SDK
+- [Angular](https://angular.io/) - FrontEnd Framework
+- [Express](https://expressjs.com/) - BackEnd Framework
+- [Sequelize](https://sequelize.org/) - ORM
+- [MySQL](https://www.mysql.com/) - BD
 
 **Frontpage image**: [Farm Vectores, by Vecteezy](https://es.vecteezy.com/vectores-gratis/farm).
 
 ## 👩🏻‍🌾 7. Authors
 
-* **Iremaru** - _Initial work_ - [GitHub](https://github.com/iremaru)
+- **Iremaru** - _Initial work_ - [GitHub](https://github.com/iremaru)
 
 ## 📃 8. License
 
@@ -220,5 +220,5 @@ This project is licensed under the MIT License.
 
 ## 🧾 9. Acknowledgments
 
-* This project is the result of "Multimedia and Mobile development" subject's activity, as part of DAM course (_Cross-platform development training course_) given by Tiburcio Cruz, aka [Tcrurav](https://github.com/tcrurav) from [I.E.S. El Rincón](ieselrincon.org/), in [Canary Islands](https://en.wikipedia.org/wiki/Canary_Islands).
-* This project was inpired by my **mom's vegetable garden, 💚Malva-risco💚** and her needs for an admin system.
+- This project is the result of "Multimedia and Mobile development" subject's activity, as part of DAM course (_Cross-platform development training course_) given by Tiburcio Cruz, aka [Tcrurav](https://github.com/tcrurav) from [I.E.S. El Rincón](ieselrincon.org/), in [Canary Islands](https://en.wikipedia.org/wiki/Canary_Islands).
+- This project was inpired by my **mom's vegetable garden, 💚Malva-risco💚** and her needs for an admin system.
