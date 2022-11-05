@@ -2,6 +2,39 @@
 
 Web admin for _Malva-Risco farm_, in Tenerife island. 💚
 
+## 0. Features
+
+- ✅ Apartados correspondientes a la UT1: (20%)
+  - ✅ Apartado 1: Enlace de tu proyecto full stack subido a Github. (1%)
+  - ✅ Apartado 2: Pantallazo(s) donde se vea tu README.md. (1%)
+  - ✅ Apartado 3: Pantallazo(s) de tu README.md en el que se vea que has colgado la documentación correspondiente a tu API que has publicado con POSTMAN. (2%)
+  - ✅ Apartado 4: Pantallazo(s) de POSTMAN donde se vea que te funciona al menos un GET. (2%)
+  - ✅ Apartado 5: Pantallazo(s) de POSTMAN donde se vea que te funciona al menos un POST. (2%)
+  - ✅ Apartado 6: Pantallazo(s) de POSTMAN donde se vea que te funciona al menos un DELETE. (2%)
+  - ✅ Apartado 7: Pantallazo(s) de POSTMAN donde se vea que te funciona al menos un PUT. (2%)
+  - ✅ Apartado 8: Pantallazo(s) de tu App con Ionic donde se vea que te funciona al menos un GET. (2%)
+  - ✅ Apartado 9: Pantallazo(s) de tu App con Ionic donde se vea que te funciona al menos un POST. (2%)
+  - ✅ Apartado 10: Pantallazo(s) de tu App con Ionic donde se vea que te funciona al menos un DELETE. (2%)
+  - ✅ Apartado 11: Pantallazo(s) de tu App con Ionic donde se vea que te funciona al menos un PUT. (2%)
+- ⬜ Apartados correspondientes a la UT2: (20%)
+  - ⬜ Apartado 12: Pantallazo de cada uno de los componentes de Ionic que has usado.
+    - ⬜ Componente 1 (2%).
+    - ⬜ Componente 2 (2%).
+    - ⬜ Componente 3 (2%).
+    - ⬜ Componente 4 (2%).
+    - ⬜ Componente 5 (2%).
+    - ⬜ Componente 6 (2%).
+    - ⬜ Componente 7 (2%).
+    - ⬜ Componente 8 (2%).
+    - ⬜ Componente 9 (2%).
+    - ⬜ Componente 10 (2%).
+- ⬜ Apartados correspondientes a la UT3: (10%)
+  - ⬜ Apartado 13: Pantallazo(s) donde se vea que tu App ejecutándose en un móvil o emulador permite capturar una foto con la cámara. (5%)
+  - ⬜ Apartado 14: Pantallazo(s) donde se vea que tu App puede hacer un CRUD con una imagen. (2,5%)
+  - ⬜ Apartado 15: Pantallazo(s) donde se vea que tu App puede hacer un CRUD con una imagen almacenando dicha foto en el backend. (2,5%)
+- ⬜ Apartados correspondientes a la UT5: (10%)
+  - ⬜ Apartado 16: Pantallazo(s) donde se vea que tu App implementa una autenticación básica. (10%)
+
 ## 🏃🏻‍♀️ 1. Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

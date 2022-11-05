@@ -1,15 +1,17 @@
 
 const express = require("express");
 const cors = require('cors');
+const db = require('./app/model');
+const path = require('path');
 
 const corsOptions = { origin: 'http://localhost:4200'};
 const app = express();
 
 app.use( express.json() );
 app.use( express.urlencoded( { extended: true } ) );
-app.use( cors( corsOptions ) );
+app.use(cors(corsOptions));
+app.use(express.static(path.join(__dirname, 'public')));
 
-const db = require('./app/model');
 
 let productionMode = true;
 process.argv.forEach( (val, i, array) => { if( val  == 'devmode' ) productionMode = false; });

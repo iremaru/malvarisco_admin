@@ -11,7 +11,9 @@ module.exports = (sequelize, Sequelize) => {
             description: {
                 type: Sequelize.CHAR,
             },
-            
+            imageName: {
+                type: Sequelize.STRING,
+            }
         }
     );
     
