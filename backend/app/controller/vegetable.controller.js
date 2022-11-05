@@ -1,24 +1,20 @@
-const db = require("../model");
+const models = require("../model");
+const vegetableModel = models.vegetables;
 
-const vegetablePartDB = db.vegetableParts;
-const op = db.Sequelize.Op;
-
-/**
- * Create and Save a new vegetable part
- */
 exports.create = (req, res) => {
-    if(!req.body.name) {
+    if(!req.body.description) {
         res.status(404).send({ message: 'Content can\'t be empty.'});
         return;
     }
 
-    const vegetablePart = {
-        name: req.body.name,
+    const vegetable = {
+        specieTypeID: req.body.specieTypeID,
+        vegetablePartID: req.body.vegetablePartID,
         description: req.body.description,
-        examples: req.body.examples,
+        imageName: req.file? req.file.filename : '',
     };
 
-    vegetablePartDB.create(vegetablePart)
+    vegetableModel.create(vegetable)
         .then( data => {
             res.send( data );
         })
@@ -27,51 +23,53 @@ exports.create = (req, res) => {
                 message: err.message || "Some error occurred while creating the vegetable part"
             });
         });
-};
+}
+
 exports.findAll = (req, res) => {
 
-    vegetablePartDB.findAll( )
+    vegetableModel.findAll( )
         .then( data => {
             res.send( data );
         } )
         .catch( err => {
             res.status( 500 ).send( {
-                message: "Some error ocurred while retrieving vegetable parts."
+                message: "Some error ocurred while retrieving vegetables."
             });
         } );
 };
+
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    vegetablePartDB.findByPk(id)
+    vegetableModel.findByPk(id)
         .then( data => {
             if( data ) {
                 res.send(data);
             } else {
                 res.status( 404 ).send({
-                message: `Cannot find vegetable part with id=${id}.`
+                message: `Cannot find vegetable with id=${id}.`
             });
         }
     })
     .catch( err => {
         res.status( 500 ).send({
-        message: "Error retrieving vegetable part with id=" + id
+        message: "Error retrieving vegetable with id=" + id
         });
     });
 };
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    vegetablePartDB.update( req.body, {
+    vegetableModel.update( req.body, {
         where: { id: id }
     }).then( num => {
         if (num == 1) {
             res.send({
-                message: "Vegetable part was updated successfully."
+                message: "Vegetable was updated successfully."
             });
         } else {
             res.send({
-                message: `Cannot update vegetable part with id=${id}. Maybe vegetable part was not found or req.body is empty!`
+                message: `Cannot update vegetable with id=${id}. Maybe vegetable was not found or req.body is empty!`
             });
         }
     }).catch( err => {
@@ -83,16 +81,16 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    vegetablePartDB.destroy({
+    vegetableModel.destroy({
         where: { id: id }
     }).then( num => {
         if (num == 1) {
             res.send({
-                message: "Vegetable part was deleted successfully!"
+                message: "Vegetable was deleted successfully!"
             });
         } else {
             res.send({
-                message: `Cannot delete vegetable part with id=${id}. Maybe vegetable part was not found!`
+                message: `Cannot delete vegetable with id=${id}. Maybe vegetable was not found!`
             });
         }
     }).catch( err => {
@@ -103,16 +101,16 @@ exports.delete = (req, res) => {
 };
 
 exports.deleteAll = (req, res) => {
-    vegetablePartDB.destroy({
+    vegetableModel.destroy({
         where: {},
         truncate: false
     }).then(nums => {
-        res.send({ message: `${nums} vegetable parts were deleted successfully!` });
+        res.send({ message: `${nums} vegetable were deleted successfully!` });
     })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all vegetable parts."
+                    err.message || "Some error occurred while removing all vegetables."
             });
         });
 };

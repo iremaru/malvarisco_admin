@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require('cors');
 const db = require('./app/model');
@@ -29,6 +28,7 @@ app.get('/', (req, res) => {
 } );
 
 require("./app/routes/vegetablePart.routes")(app);
+require("./app/routes/vegetable.routes")(app);
 
 const PORT = process.env.PORT || 8088;
 app.listen( PORT, () => console.log( `Server is running in port ${PORT}.` ) );
