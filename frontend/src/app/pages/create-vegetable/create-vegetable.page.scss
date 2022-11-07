@@ -1,0 +1,27 @@
+ion-col {
+    text-align: center;
+}
+
+.photo-frame {
+    margin: 4vw;
+    border: black solid 1px;
+    width: 40vw;
+    border-radius: .25em;
+
+    .photo{
+        margin: 1vw;
+    }
+}
+
+.error {
+    color: red;
+}
+
+form {
+    margin: 1vh 5vw;
+}
+
+.buttons{
+    display: flex;
+    flex-flow: column;
+}

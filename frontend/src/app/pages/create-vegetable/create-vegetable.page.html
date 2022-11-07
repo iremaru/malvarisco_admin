@@ -7,11 +7,12 @@
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col size="6">
-        <ion-img class="photo-frame" *ngIf="capturedPhoto" [src]="capturedPhoto" (click)="takePhoto()"></ion-img>
-        <ion-img class="photo-frame" *ngIf="!capturedPhoto" src="../../../assets/imgs/no_image_placeholder.svg"
-          (click)="takePhoto()"></ion-img>
+        <div class="photo-frame">
+          <ion-img class="photo" *ngIf="capturedPhoto" [src]="capturedPhoto" ></ion-img>
+          <ion-img class="photo" *ngIf="!capturedPhoto" src="../../../assets/imgs/no_image_placeholder.svg" ></ion-img>
+        </div>
       </ion-col>
-      <ion-col size="6">
+      <ion-col class="buttons" size="6">
         <ion-button color="primary" fill="outline" (click)="takePhoto()">
           <ion-icon slot="start" name="camera-outline"></ion-icon>
           Take a photo
@@ -29,16 +30,33 @@
   </ion-grid>
 
   <form [formGroup]="vegetableForm" (ngSubmit)="submitForm()" novalidate>
-    <ion-item lines="full">
-      <ion-label position="floating">Especie y variedad:</ion-label>
-      <ion-input formControlName="vegetableType" type="text" required></ion-input>
+    <!-- VEGETABLE PART -->
+    <ion-list>
+      <ion-item>
+        <ion-select placeholder="Parte de la planta" formControlName="vegetablePart"  required>
+          <ion-select-option *ngFor="let part of vegetableParts" [value]="part.id">
+            {{ part.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.vegetablePart.errors?.required">Por favor, señala la parte del vegetal a la que corresponde</span>
+    <!-- SPECIE AND TYPE -->
+    <ion-list>
+      <ion-item>
+        <ion-select placeholder="Especie y variedad" formControlName="vegetableType"  required>
+          <ion-select-option *ngFor="let part of vegetableParts" [value]="part.id">
+            {{ part.name }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.vegetableType.errors?.required">Necesitas incluir especie y variedad.</span>
+    <!-- DESCRIPTION -->
+    <ion-item>
+      <ion-label>Descripción</ion-label>
+      <ion-input formControlName="description" ></ion-input>
     </ion-item>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.brand.errors?.required">Brand is required.</span>
-    <ion-item lines="full">
-      <ion-label position="floating">Tipo</ion-label>
-      <ion-input formControlName="vegetablePart" type="text" required></ion-input>
-    </ion-item>
-    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.model.errors?.required">Model is required.</span>
     <ion-row>
       <ion-col>
         <ion-button type="submit" color="primary" expand="block">Submit</ion-button>

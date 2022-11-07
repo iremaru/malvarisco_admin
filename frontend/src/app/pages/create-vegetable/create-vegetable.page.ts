@@ -1,10 +1,10 @@
 import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
-import { IVegetable } from 'src/app/interfaces/IVegetable';
+import { IVegetablePart } from 'src/app/interfaces/IVegetablePart';
 import { PhotoService } from 'src/app/services/photo.service';
 import { VegetableCRUDService } from 'src/app/services/vegetable-crud.service';
+import { VegetablePartCRUDService } from 'src/app/services/vegetable-part-crud.service';
 
 @Component({
   selector: 'app-create-vegetable',
@@ -17,12 +17,15 @@ export class CreateVegetablePage implements OnInit {
   isSubmitted: boolean;
   capturedPhoto: string;
 
+  vegetableParts: IVegetablePart[];
+
   constructor(
     public formBuilder: FormBuilder,
     private photoService: PhotoService,
     private vegetableService: VegetableCRUDService,
     private zone: NgZone,
-    private navController: NavController
+    private navController: NavController,
+    private vegetablePartService: VegetablePartCRUDService
   ) { }
 
   get errorControl() {
@@ -39,11 +42,30 @@ export class CreateVegetablePage implements OnInit {
     this.vegetableForm = this.formBuilder.group({
       vegetableType: ['', [Validators.required]],
       vegetablePart: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+      description: [''],
       image: [''],
     });
+    //this.dataPoblator.poblateVegetableParts(this.vegetableParts);
+    this.getAllVegetableParts();
   }
 
+  //#region VEGETABLE PART
+  getAllVegetableParts() {
+    this.vegetablePartService.getVegetableParts().subscribe(
+      resp => {
+        this.vegetableParts = [];
+        resp.forEach(part => {
+          this.vegetableParts.push({
+            id: part.id,
+            name: part.name.charAt(0).toUpperCase() + part.name.slice(1) ,
+            description: part.description,
+            examples: part.examples
+          });
+        });
+      }
+    );
+  }
+   //#endregion
 
   takePhoto() {
     this.photoService.takePhoto().then(data => {

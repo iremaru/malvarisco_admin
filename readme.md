@@ -23,13 +23,13 @@ Web admin for _Malva-Risco farm_, in Tenerife island. 💚
   - ✅ Component 4 - [Ion-back-button](https://ionicframework.com/docs/api/back-button) (2/20 %)
   - ✅ Component 5 - [Ion-icon](https://ionic.io/ionicons) (2/20 %)
   - ✅ Component 6 - [Ion-list](https://ionicframework.com/docs/api/list) (2/20 %)
-  - ✅ Component 7 - [Ionic Alert](https://ionicframework.com/docs/api/alert) (2/20 %)
-  - ⬜ Component 8 (2/20 %)
-  - ⬜ Component 9 (2/20 %)
+  - ✅ Component 7 - [Ion-alert](https://ionicframework.com/docs/api/alert) (2/20 %)
+  - ✅ Component 8 - [Ion-select](https://ionicframework.com/docs/api/select) (2/20 %)
+  - ✅ Component 9 - [Ion-input](https://ionicframework.com/docs/api/input) (2/20 %)
   - ⬜ Component 10 (2/20 %)
-- ⬜ Photos (10%)
-  - ⬜ Take photos with device's camera. (5/10 %)
-  - ⬜ Handle photos from frontend (CRUD). (2,5/10 %)
+- ✅ Photos (10%)
+  - ✅ Take photos with device's camera. (5/10 %)
+  - ✅ Handle photos from frontend (CRUD). (2,5/10 %)
   - ✅ Store the photo in the backend (CRUD). (2,5/10 %)
 - ⬜ Auth (10%)
   - ⬜ Implement basic authentication (10/10 %)
@@ -45,7 +45,7 @@ These instructions will get you a copy of the project up and running on your loc
 1️⃣ If you haven't Git installed in your local machine, I hardly encorage you to install it. Then you could clone the whole repository.
 
 ```bash
-git clone 'path'
+git clone https://github.com/iremaru/malvarisco_admin.git
 ```
 
 2️⃣ You will need Node >16.13.0 to run the server either in the backend (api to database) as in the frontend (web).

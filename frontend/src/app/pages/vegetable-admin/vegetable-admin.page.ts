@@ -49,13 +49,8 @@ export class VegetableAdminPage implements OnInit {
               examples: part.examples
             });
           });
-
         }
-        /* resp => {
-          this.vegetableParts = resp;
-        } */
       );
-
     }
 
     removePart(vegetablePart){
@@ -197,7 +192,6 @@ export class VegetableAdminPage implements OnInit {
     await alert.present();
   }
   //#endregion
-
 
   async askDeleteConfirmation(itemToDelete) {
     const alert = await this.alertController.create({
