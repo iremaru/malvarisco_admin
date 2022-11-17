@@ -31,8 +31,8 @@ npm-debug.log*
 */plugins
 */www
 
+#VSC
 *.code-workspace
-db.config.js
 
 #IMAGES
 *.png
@@ -40,3 +40,10 @@ db.config.js
 *.gif
 *.webp
 !sample.webp
+
+#Config
+db.config.js
+.env
+
+#Android
+*/android

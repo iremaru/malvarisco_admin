@@ -37,7 +37,7 @@
           <ion-button color="primary" shape="round" (click)="triggerAlertUpdateVegetablePart(part)">
             <ion-icon name="pencil" ></ion-icon>
           </ion-button>
-          <ion-button fill="clear" shape="round" (click)="askDeleteConfirmation(part)">
+          <ion-button fill="clear" shape="round" (click)="askDeletePartConfirmation(part)">
             <ion-icon name="trash" color="danger"></ion-icon>
           </ion-button>
         </div>
@@ -65,9 +65,58 @@
 
       </ion-buttons>
     </ion-toolbar>
+
     <ion-list  *ngIf="showVegetableAssetsSection">
-      <!-- <p class="text dev_alert">🚧 Sección aún en desarrollo. Por favor, espere a una nueva actualización para poder usarla. 🚧</p> -->
       <ion-item *ngFor="let vegetable of vegetables">
+        
+        <ion-label>
+          <p class="text text_vegetable-part_name" >{{vegetable.name | titlecase}}</p>
+          <div class="item_description" >
+            <div class="imgFrame imgFrame_vegetable">
+              <img *ngIf="vegetable.imageName" class="img img_vegetable" src="http://localhost:8088/images/{{vegetable.imageName}}" />
+            </div>
+            <p class="text text_vegetable-part_description">{{vegetable.description}}</p>
+          </div>
+        </ion-label>
+  
+        <div>
+          <ion-button color="secondary"  (click)="takePhoto(vegetable)">
+            <ion-icon name="image-outline" ></ion-icon>
+          </ion-button>
+          <ion-button color="primary" shape="round" (click)="triggerAlertUpdateVegetable(vegetable)">
+            <ion-icon name="pencil" ></ion-icon>
+          </ion-button>
+          <ion-button fill="clear" shape="round" (click)="askDeleteVegetableConfirmation(vegetable)">
+            <ion-icon name="trash" color="danger"></ion-icon>
+          </ion-button>
+        </div>
+
+      </ion-item>
+    </ion-list>
+
+  </div>
+
+  <!--Farm section-->
+  <div class="section section_vegetable-assets">
+
+    <ion-toolbar>
+      <h2 class="text text_section-title">Huertas</h2>
+      <ion-buttons slot="end">
+        
+        <ion-button fill="solid" shape="round" (click)="showFarmSection = !showFarmSection"  color="secondary">
+          <ion-icon slot="icon-only" [name]="showFarmSection ? 'eye-off' : 'eye' "></ion-icon>
+        </ion-button>
+        
+        <ion-button class="button button-secondary_create" fill="solid" color="primary" slot='secondary' [routerLink]="['/create-vegetable/']" shape="round" >
+          <ion-icon slot="start" name="add"></ion-icon>
+          <span class="text text_button text_button_success">Nuevo</span>
+        </ion-button>
+
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-list  *ngIf="showFarmSection">
+      <p class="text dev_alert">🚧 Sección aún en desarrollo. Por favor, espere a una nueva actualización para poder usarla. 🚧</p>
+      <!-- <ion-item *ngFor="let vegetable of vegetables">
         
         <ion-label>
           <p class="text text_vegetable-part_name" >{{vegetable.name | titlecase}}</p>
@@ -91,7 +140,7 @@
           </ion-button>
         </div>
 
-      </ion-item>
+      </ion-item> -->
     </ion-list>
 
   </div>

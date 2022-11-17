@@ -24,8 +24,8 @@ const db = {
     vegetableParts: require("./vegetablePart.model.js")(orm, Sequelize),
     vegetableSpecies: require("./vegetableSpecie.model.js")(orm, Sequelize),
     vegetableSpecieTypes: require("./vegetableSpecieType.model.js")(orm, Sequelize),
-    vegetableSpecieTypes: require("./vegetableSpecieType.model.js")(orm, Sequelize),
     vegetables: require("./vegetable.model.js")(orm, Sequelize),
+    users: require("./user.model.js")(orm, Sequelize),
 };
 
 /* db.Sequelize = Sequelize;

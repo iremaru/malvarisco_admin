@@ -60,7 +60,14 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    vegetableModel.update( req.body, {
+    const vegetable = {
+        specieTypeID: req.body.specieTypeID,
+        vegetablePartID: req.body.vegetablePartID,
+        description: req.body.description,
+        imageName: req.file? req.file.filename : '',
+    };
+
+    vegetableModel.update( vegetable , {
         where: { id: id }
     })
     .then(num => {
