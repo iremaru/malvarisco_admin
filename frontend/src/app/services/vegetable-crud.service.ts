@@ -18,12 +18,12 @@ export class VegetableCRUDService {
 
   getVegetables = (): Observable<IVegetable[]> => this.httpClient.get<IVegetable[]>(this.endpoint);
 
-  createVegetable(vegetable: IVegetable, foto: Blob): Observable<any> {
+  createVegetable(vegetable: IVegetable, photo: Blob): Observable<any> {
     const formData = new FormData();
     formData.append( 'specieTypeID', vegetable.vegetableType.toString() );
     formData.append( 'vegetablePartID', vegetable.vegetablePart.toString() );
     formData.append( 'description', vegetable.description );
-    formData.append( 'file', foto );
+    formData.append( 'file', photo );
 
     return this.httpClient.post<IVegetable>( this.endpoint, formData );
   }
@@ -34,6 +34,16 @@ export class VegetableCRUDService {
 
   updateVegetable(id: number, vegetable: IVegetable): Observable<any> {
     return this.httpClient.put(this.endpoint + id, JSON.stringify( vegetable ) , this.httpOptions);
+  }
+
+  updateVegetablePhoto(id: number, vegetable: IVegetable, photo: Blob): Observable<any>{
+    const formData = new FormData();
+    formData.append( 'specieTypeID', vegetable.vegetableType?.toString() );
+    formData.append( 'vegetablePartID', vegetable.vegetablePart?.toString() );
+    formData.append( 'description', vegetable.description );
+    formData.append('file', photo);
+    console.log('VEGETABLE SERVICE: ' + photo);
+    return this.httpClient.put<IVegetable>(this.endpoint + id, formData);
   }
 
   deleteVegetable(id: number): Observable<IVegetable> {

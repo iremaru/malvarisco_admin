@@ -3,6 +3,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 import { IVegetable } from 'src/app/interfaces/IVegetable';
 import { IVegetablePart } from 'src/app/interfaces/IVegetablePart';
 import { VegetableDTO } from 'src/app/models/VegetableDTO';
+import { PhotoService } from 'src/app/services/photo.service';
 import { VegetableCRUDService } from 'src/app/services/vegetable-crud.service';
 import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
 
@@ -13,16 +14,34 @@ import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.ser
 })
 export class VegetableAdminPage implements OnInit {
 
+  /* sections = [
+    {
+      sectionName: 'VegetablePart',
+      isHidden: true,
+    },
+    {
+      sectionName: 'VegetableAssets',
+      isHidden: true,
+    },
+    {
+      sectionName: 'LastSection',
+      isHidden: true,
+    }
+  ]; */
   showVegetablePartSection: boolean;
   showVegetableAssetsSection: boolean;
+  showFarmSection: boolean;
   vegetableParts: IVegetablePart[] = [];
   vegetables: VegetableDTO[] = [];
+
+  capturedPhoto: string;
 
   constructor(
     private vegetablePartService: VegetablePartCRUDService,
     private vegetableService: VegetableCRUDService,
     private alertController: AlertController,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private photoService: PhotoService,
     ) { }
 
   ngOnInit() {
@@ -108,8 +127,27 @@ export class VegetableAdminPage implements OnInit {
       });
 
       await alert.present();
-    }
+  }
 
+  async askDeletePartConfirmation(itemToDelete) {
+    const alert = await this.alertController.create({
+      header: `Eliminar ${itemToDelete.name}`,
+      subHeader: 'Esta acción es irreversible',
+      message: `¿Está segura/o de que quiere eliminar ${itemToDelete.name}?`,
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => { },
+        },
+        {
+          text: 'Sí',
+          role: 'destructive',
+          handler: () => this.removePart(itemToDelete),
+        },
+      ],
+    });
+  }
   //#endregion
 
   //#region VEGETABLE
@@ -117,11 +155,17 @@ export class VegetableAdminPage implements OnInit {
   getAllVegetables() {
     let response: IVegetable[];
     this.vegetableService.getVegetables().subscribe(resp => {
+      console.log( JSON.stringify( resp ));
+
       this.vegetables = [];
       resp.forEach(item => {
         this.vegetables.push({
           id: item.id,
-          vegetableType: null, //item.vegetableType,
+          vegetableType: {
+            vegetableTypeID: item.vegetableType,
+            specie: null,
+            name: null
+          },
           vegetablePart: this.vegetableParts.find(part => part.id === item.vegetablePart),
           name: 'Nada',
           description: item.description,
@@ -156,13 +200,8 @@ export class VegetableAdminPage implements OnInit {
 
   async triggerAlertUpdateVegetable(vegetable: VegetableDTO) {
     const alert = await this.alertController.create({
-      header: `Modificar ${vegetable.name}`,
+      header: `Modificar ${vegetable.description}`,
       inputs: [
-        {
-          name: 'name',
-          placeholder: vegetable.name,
-          value: vegetable.name,
-        },
         {
           label: 'Descripción',
           name: 'description',
@@ -191,9 +230,8 @@ export class VegetableAdminPage implements OnInit {
 
     await alert.present();
   }
-  //#endregion
 
-  async askDeleteConfirmation(itemToDelete) {
+  async askDeleteVegetableConfirmation(itemToDelete) {
     const alert = await this.alertController.create({
       header: `Eliminar ${itemToDelete.name}`,
       subHeader: 'Esta acción es irreversible',
@@ -207,7 +245,7 @@ export class VegetableAdminPage implements OnInit {
         {
           text: 'Sí',
           role: 'destructive',
-          handler: () => this.removePart(itemToDelete),
+          handler: () => this.removeVegetable(itemToDelete),
         },
       ],
     });
@@ -222,4 +260,39 @@ export class VegetableAdminPage implements OnInit {
     });
     await toast.present();
   }
+  takePhoto(vegetable: VegetableDTO) {
+    this.photoService.takePhoto().then(data => {
+      this.capturedPhoto = data.webPath;
+      this.submitPhoto(vegetable);
+    });
+  }
+
+  async submitPhoto(vegetable: VegetableDTO) {
+    console.log( JSON.stringify( vegetable ));
+
+    if (this.capturedPhoto === '') {
+      console.log('Please provide all the required values!');
+      return false;
+    }
+
+    const updatedVegetable: IVegetable = {
+      id: vegetable.id,
+      vegetableType: vegetable.vegetableType?.vegetableTypeID,
+      vegetablePart: vegetable.vegetablePart?.id,
+      description: vegetable.description,
+      imageName: vegetable.imageName
+    };
+
+    const response = await fetch(this.capturedPhoto);
+    const blob = await response.blob();
+
+    this.vegetableService.updateVegetablePhoto(vegetable.id, updatedVegetable, blob);
+    //this.getAllVegetables();
+
+    /* this.vegetableService.updateVegetable(vegetable.id, updatedVegetable).subscribe(resp => {
+    console.log('Photo sent!', JSON.stringify( resp ));});
+    */
+  }
+
+  //#endregion
 }
