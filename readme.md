@@ -26,7 +26,7 @@ Web admin for _Malva-Risco farm_, in Tenerife island. 💚
   - ✅ Component 7 - [Ion-alert](https://ionicframework.com/docs/api/alert) (2/20 %)
   - ✅ Component 8 - [Ion-select](https://ionicframework.com/docs/api/select) (2/20 %)
   - ✅ Component 9 - [Ion-input](https://ionicframework.com/docs/api/input) (2/20 %)
-  - ⬜ Component 10 (2/20 %)
+  - ✅ Component 10 - [Ion-modal](https://ionicframework.com/docs/api/modal)(2/20 %)
 - ✅ Photos (10%)
   - ✅ Take photos with device's camera. (5/10 %)
   - ✅ Handle photos from frontend (CRUD). (2,5/10 %)

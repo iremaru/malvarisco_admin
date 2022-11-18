@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'create-vegetable',
     loadChildren: () => import('./pages/create-vegetable/create-vegetable.module').then( m => m.CreateVegetablePageModule)
   },
+  {
+    path: 'update-vegetable-photo',
+    loadChildren: () => import('./pages/update-vegetable-photo/update-vegetable-photo.module').then( m => m.UpdateVegetablePhotoPageModule)
+  },
 
 ];
 

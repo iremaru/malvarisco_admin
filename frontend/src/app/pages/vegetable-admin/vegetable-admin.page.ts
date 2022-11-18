@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { AlertController, ToastController } from '@ionic/angular';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AlertController, IonModal, ModalController, ToastController } from '@ionic/angular';
 import { IVegetable } from 'src/app/interfaces/IVegetable';
 import { IVegetablePart } from 'src/app/interfaces/IVegetablePart';
 import { VegetableDTO } from 'src/app/models/VegetableDTO';
 import { PhotoService } from 'src/app/services/photo.service';
 import { VegetableCRUDService } from 'src/app/services/vegetable-crud.service';
 import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
+import { UpdateVegetablePhotoPage } from '../update-vegetable-photo/update-vegetable-photo.page';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-vegetable-admin',
@@ -14,20 +16,7 @@ import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.ser
 })
 export class VegetableAdminPage implements OnInit {
 
-  /* sections = [
-    {
-      sectionName: 'VegetablePart',
-      isHidden: true,
-    },
-    {
-      sectionName: 'VegetableAssets',
-      isHidden: true,
-    },
-    {
-      sectionName: 'LastSection',
-      isHidden: true,
-    }
-  ]; */
+  @ViewChild(IonModal) modal: IonModal;
   showVegetablePartSection: boolean;
   showVegetableAssetsSection: boolean;
   showFarmSection: boolean;
@@ -42,6 +31,7 @@ export class VegetableAdminPage implements OnInit {
     private alertController: AlertController,
     private toastController: ToastController,
     private photoService: PhotoService,
+    private modalController: ModalController,
     ) { }
 
   ngOnInit() {
@@ -53,8 +43,6 @@ export class VegetableAdminPage implements OnInit {
     this.getAllVegetableParts();
     this.getAllVegetables();
   }
-
-  //#region VEGETABLE PART
 
     getAllVegetableParts() {
       this.vegetablePartService.getVegetableParts().subscribe(
@@ -148,9 +136,6 @@ export class VegetableAdminPage implements OnInit {
       ],
     });
   }
-  //#endregion
-
-  //#region VEGETABLE
 
   getAllVegetables() {
     let response: IVegetable[];
@@ -214,11 +199,10 @@ export class VegetableAdminPage implements OnInit {
           text: 'Actualizar',
           role: 'confirm',
           handler: ( data ) => {
-            if( data.name !== '')
+            if( data.description !== '')
             {
-              vegetable.name = data.name;
               vegetable.description = data.description;
-              this.updatePart(vegetable);
+              this.updateVegetable(vegetable);
             } else {
               this.presentToastFieldRequired('middle', 'nombre');
               return false;
@@ -230,7 +214,6 @@ export class VegetableAdminPage implements OnInit {
 
     await alert.present();
   }
-
   async askDeleteVegetableConfirmation(itemToDelete) {
     const alert = await this.alertController.create({
       header: `Eliminar ${itemToDelete.name}`,
@@ -252,6 +235,7 @@ export class VegetableAdminPage implements OnInit {
 
     await alert.present();
   }
+
   async presentToastFieldRequired(position: 'top' | 'middle' | 'bottom', textRequired: string) {
     const toast = await this.toastController.create({
       message: `Por favor, rellene el ${textRequired} para modificar.`,
@@ -260,39 +244,45 @@ export class VegetableAdminPage implements OnInit {
     });
     await toast.present();
   }
-  takePhoto(vegetable: VegetableDTO) {
-    this.photoService.takePhoto().then(data => {
-      this.capturedPhoto = data.webPath;
-      this.submitPhoto(vegetable);
-    });
+  openModal(event: Event, vegetable: VegetableDTO) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.submitPhoto(vegetable, ev.detail.data);
+    }
   }
 
-  async submitPhoto(vegetable: VegetableDTO) {
-    console.log( JSON.stringify( vegetable ));
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
 
-    if (this.capturedPhoto === '') {
-      console.log('Please provide all the required values!');
-      return false;
-    }
+  confirm(vegetable: VegetableDTO) {
+    this.modal.dismiss('hola', 'confirm');
+    this.submitPhoto(vegetable, this.capturedPhoto);
+  }
+
+  async submitPhoto(vegetable: VegetableDTO, photo: string) {
+    console.log( JSON.stringify( vegetable ));
 
     const updatedVegetable: IVegetable = {
       id: vegetable.id,
       vegetableType: vegetable.vegetableType?.vegetableTypeID,
       vegetablePart: vegetable.vegetablePart?.id,
-      description: vegetable.description,
-      imageName: vegetable.imageName
+      description: vegetable.description
     };
 
-    const response = await fetch(this.capturedPhoto);
+    const response = await fetch(photo) ;
     const blob = await response.blob();
+    console.log('BLOB: ', JSON.stringify( blob ));
 
     this.vegetableService.updateVegetablePhoto(vegetable.id, updatedVegetable, blob);
-    //this.getAllVegetables();
+    this.getAllVegetables();
 
-    /* this.vegetableService.updateVegetable(vegetable.id, updatedVegetable).subscribe(resp => {
-    console.log('Photo sent!', JSON.stringify( resp ));});
-    */
   }
 
-  //#endregion
+  takePhoto() {
+    this.photoService.takePhoto().then(data => {
+      this.capturedPhoto = data.webPath;
+    });
+  }
+
 }
