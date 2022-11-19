@@ -38,7 +38,9 @@
 
         &.img_vegetable{
             max-width: 50px;
-            max-height: 50px;
+            height: 50px;
+            border-radius: 10%;
+            object-fit: cover;
         }
     }
 
@@ -47,10 +49,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            max-width: 50px;
-            min-width: 50px;
-            max-height: 50px;
-            min-height: 50px;
+            width: 60px;
+            height: 60px;
             background-color: #2b5c31;
             border-radius: 2px 0 0 10px;
         }
@@ -86,7 +86,7 @@
             text-transform: uppercase;
             
             &.text_button_centered{
-                font-size: medium;
+                font-size: 2vw;
             }
             &.text_button_success{
                 color: var(--ion-color-success-contrast);
@@ -151,7 +151,7 @@
                 align-items: center;
                 margin-left: 35px;
                 margin-right: 25px;
-                border-radius: 15px 0 0 5px;
+                border-radius: 2px 0 0 10px;
             }
         }
     }

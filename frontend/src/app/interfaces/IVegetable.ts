@@ -1,7 +1,7 @@
 export interface IVegetable {
     id: number;
-    vegetableType: number;
-    vegetablePart: number;
+    specieTypeID: number;
+    vegetablePartID: number;
     description: string;
     imageName?: string;
 

@@ -12,5 +12,30 @@ export class VegetableDTO {
     name: string;
     description: string;
     imageName: string;
+
+    static convertFromIVegetable(item: IVegetable, vegetablePartList: IVegetablePart[]): VegetableDTO {
+        return {
+            id: item.id,
+            vegetableType: {
+                vegetableTypeID: item.specieTypeID,
+                specie: null,
+                name: null
+            },
+            vegetablePart: vegetablePartList.find(part => part.id === item.vegetablePartID),
+            name: 'Planta',
+            description: item.description,
+            imageName: item.imageName ? item.imageName : 'sample.webp'
+        };
+    }
+
+    static convertIntoIVegetable(item: VegetableDTO): IVegetable {
+        return {
+            id: item.id,
+            specieTypeID: item.vegetableType.vegetableTypeID,
+            vegetablePartID: item.vegetablePart.id,
+            description: item.description,
+            imageName: item.imageName
+        } ;
+    }
 }
 

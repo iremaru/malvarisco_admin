@@ -8,6 +8,7 @@ import { VegetableCRUDService } from 'src/app/services/vegetable-crud.service';
 import { VegetablePartCRUDService } from '../../services/vegetable-part-crud.service';
 import { UpdateVegetablePhotoPage } from '../update-vegetable-photo/update-vegetable-photo.page';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { VegetableTypeDTO } from 'src/app/models/VegetableTypeDTO';
 
 @Component({
   selector: 'app-vegetable-admin',
@@ -32,7 +33,7 @@ export class VegetableAdminPage implements OnInit {
     private toastController: ToastController,
     private photoService: PhotoService,
     private modalController: ModalController,
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.getAllVegetableParts();
@@ -44,77 +45,76 @@ export class VegetableAdminPage implements OnInit {
     this.getAllVegetables();
   }
 
-    getAllVegetableParts() {
-      this.vegetablePartService.getVegetableParts().subscribe(
-        resp => {
-          this.vegetableParts = [];
-          resp.forEach(part => {
-            this.vegetableParts.push({
-              id: part.id,
-              name: part.name,
-              description: part.description,
-              examples: part.examples
-            });
+  getAllVegetableParts() {
+    this.vegetablePartService.getVegetableParts().subscribe(
+      resp => {
+        this.vegetableParts = [];
+        resp.forEach(part => {
+          this.vegetableParts.push({
+            id: part.id,
+            name: part.name,
+            description: part.description,
+            examples: part.examples
           });
-        }
+        });
+      }
+    );
+  }
+
+  removePart(vegetablePart) {
+    this.vegetablePartService.deleteVegetablePart(vegetablePart.id)
+      .subscribe(() => {
+        this.ionViewDidEnter();
+      }
       );
-    }
+  }
 
-    removePart(vegetablePart){
-        this.vegetablePartService.deleteVegetablePart(vegetablePart.id)
-        .subscribe(() => {
-            this.ionViewDidEnter();
-          }
-        );
-    }
+  updatePart(vegetablePart) {
+    this.vegetablePartService
+      .updateVegetablePart(vegetablePart.id, vegetablePart).subscribe();
+  }
 
-    updatePart(vegetablePart) {
-      this.vegetablePartService
-        .updateVegetablePart(vegetablePart.id, vegetablePart).subscribe();
-    }
+  async triggerAlertUpdateVegetablePart(vegetablePart) {
+    const alert = await this.alertController.create({
+      header: `Modificar ${vegetablePart.name}`,
+      inputs: [
+        {
+          name: 'name',
+          placeholder: vegetablePart.name,
+          value: vegetablePart.name,
+        },
+        {
+          label: 'Descripción',
+          name: 'description',
+          placeholder: vegetablePart.description,
+          value: vegetablePart.description
+        },
+        {
+          name: 'examples',
+          placeholder: vegetablePart.examples,
+          value: vegetablePart.examples,
+        },
+      ],
+      buttons: [
+        {
+          text: 'Actualizar',
+          role: 'confirm',
+          handler: (data) => {
+            if (data.name !== '') {
+              vegetablePart.name = data.name;
+              vegetablePart.description = data.description;
+              vegetablePart.examples = data.examples;
+              this.updatePart(vegetablePart);
+            } else {
+              this.presentToastFieldRequired('middle', 'nombre');
+              return false;
+            }
+          },
+        },
+      ],
+    });
 
-    async triggerAlertUpdateVegetablePart(vegetablePart) {
-      const alert = await this.alertController.create({
-        header: `Modificar ${vegetablePart.name}`,
-        inputs: [
-          {
-            name: 'name',
-            placeholder: vegetablePart.name,
-            value: vegetablePart.name,
-          },
-          {
-            label: 'Descripción',
-            name: 'description',
-            placeholder: vegetablePart.description,
-            value: vegetablePart.description
-          },
-          {
-            name: 'examples',
-            placeholder: vegetablePart.examples,
-            value: vegetablePart.examples,
-          },
-        ],
-        buttons: [
-          {
-            text: 'Actualizar',
-            role: 'confirm',
-            handler: ( data ) => {
-              if( data.name !== '')
-              {
-                vegetablePart.name = data.name;
-                vegetablePart.description = data.description;
-                vegetablePart.examples = data.examples;
-                this.updatePart(vegetablePart);
-              } else {
-                this.presentToastFieldRequired('middle', 'nombre');
-                return false;
-              }
-            },
-          },
-        ],
-      });
-
-      await alert.present();
+    await alert.present();
   }
 
   async askDeletePartConfirmation(itemToDelete) {
@@ -140,44 +140,51 @@ export class VegetableAdminPage implements OnInit {
   getAllVegetables() {
     let response: IVegetable[];
     this.vegetableService.getVegetables().subscribe(resp => {
-      console.log( JSON.stringify( resp ));
+      console.log('RECIBO VEGETALES: ', JSON.stringify(resp));
 
       this.vegetables = [];
       resp.forEach(item => {
-        this.vegetables.push({
+        /* this.vegetables.push({
           id: item.id,
           vegetableType: {
-            vegetableTypeID: item.vegetableType,
+            vegetableTypeID: item.specieTypeID,
             specie: null,
             name: null
           },
           vegetablePart: this.vegetableParts.find(part => part.id === item.vegetablePart),
-          name: 'Nada',
+          name: 'Planta',
           description: item.description,
-          imageName: item.imageName? item.imageName : ''
-        });
+          imageName: item.imageName ? item.imageName : 'sample.webp'
+        }); */
+        this.vegetables.push(VegetableDTO.convertFromIVegetable(
+          item, this.vegetableParts
+        ));
       });
 
+      console.log('CONVIERTO VEGETALES: ', JSON.stringify(this.vegetables));
     });
   }
 
-  removeVegetable(vegetable: IVegetable){
-      this.vegetableService.deleteVegetable(vegetable.id)
+  removeVegetable(vegetable: IVegetable) {
+    this.vegetableService.deleteVegetable(vegetable.id)
       .subscribe(() => {
-          this.ionViewDidEnter();
-        }
+        this.ionViewDidEnter();
+      }
       );
   }
 
   updateVegetable(vegetable: VegetableDTO) {
-    const vegetableUpdated: IVegetable = {
-      id: vegetable.id,
-      vegetableType: vegetable.vegetableType.vegetableTypeID,
-      vegetablePart: vegetable.vegetablePart.id,
-      description: vegetable.description,
-    };
+    console.log('VEGETAL A ACTUALIZAR: ', JSON.stringify(vegetable));
 
-    if(vegetable.imageName) { vegetableUpdated.imageName = vegetable.imageName;}
+    /* const vegetableUpdated: IVegetable = {
+      id: vegetable.id,
+      specieTypeID: vegetable.vegetableType.vegetableTypeID,
+      vegetablePart: vegetable.vegetablePart.id ? vegetable.vegetablePart.id : vegetable.vegetableType.vegetableTypeID,
+      description: vegetable.description,
+    }; */
+    const vegetableUpdated: IVegetable = VegetableDTO.convertIntoIVegetable(vegetable);
+
+    if (vegetable.imageName) { vegetableUpdated.imageName = vegetable.imageName; }
 
     this.vegetableService
       .updateVegetable(vegetable.id, vegetableUpdated).subscribe();
@@ -198,9 +205,8 @@ export class VegetableAdminPage implements OnInit {
         {
           text: 'Actualizar',
           role: 'confirm',
-          handler: ( data ) => {
-            if( data.description !== '')
-            {
+          handler: (data) => {
+            if (data.description !== '') {
               vegetable.description = data.description;
               this.updateVegetable(vegetable);
             } else {
@@ -223,7 +229,7 @@ export class VegetableAdminPage implements OnInit {
         {
           text: 'No',
           role: 'cancel',
-          handler: () => {},
+          handler: () => { },
         },
         {
           text: 'Sí',
@@ -247,7 +253,7 @@ export class VegetableAdminPage implements OnInit {
   openModal(event: Event, vegetable: VegetableDTO) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
-      this.submitPhoto(vegetable, ev.detail.data);
+      this.submitPhoto(vegetable);
     }
   }
 
@@ -256,23 +262,18 @@ export class VegetableAdminPage implements OnInit {
   }
 
   confirm(vegetable: VegetableDTO) {
+    this.submitPhoto(vegetable);
     this.modal.dismiss('hola', 'confirm');
-    this.submitPhoto(vegetable, this.capturedPhoto);
   }
 
-  async submitPhoto(vegetable: VegetableDTO, photo: string) {
-    console.log( JSON.stringify( vegetable ));
+  async submitPhoto(vegetable: VegetableDTO) {
+    console.log(JSON.stringify(vegetable));
 
-    const updatedVegetable: IVegetable = {
-      id: vegetable.id,
-      vegetableType: vegetable.vegetableType?.vegetableTypeID,
-      vegetablePart: vegetable.vegetablePart?.id,
-      description: vegetable.description
-    };
+    const updatedVegetable: IVegetable = VegetableDTO.convertIntoIVegetable(vegetable);
 
-    const response = await fetch(photo) ;
+    const response = await fetch(this.capturedPhoto);
     const blob = await response.blob();
-    console.log('BLOB: ', JSON.stringify( blob ));
+    console.log('BLOB: ', JSON.stringify(blob));
 
     this.vegetableService.updateVegetablePhoto(vegetable.id, updatedVegetable, blob);
     this.getAllVegetables();
