@@ -16,7 +16,7 @@ Web admin for _Malva-Risco farm_, in Tenerife island. 💚
   - ✅ Ionic - POST. (2/20 %)
   - ✅ Ionic - DELETE. (2/20 %)
   - ✅ Ionic - PUT. (2/20 %)
-- ⬜ Frontend (20%)
+- ✅ Frontend (20%)
   - ✅ Component 1 - [Ion-content](https://ionicframework.com/docs/api/content)  (2/20 %)
   - ✅ Component 2 - [Ion-toolbar](https://ionicframework.com/docs/api/toolbar) (2/20 %)
   - ✅ Component 3 - [Ion-button](https://ionicframework.com/docs/api/button) (2/20 %)
@@ -26,13 +26,14 @@ Web admin for _Malva-Risco farm_, in Tenerife island. 💚
   - ✅ Component 7 - [Ion-alert](https://ionicframework.com/docs/api/alert) (2/20 %)
   - ✅ Component 8 - [Ion-select](https://ionicframework.com/docs/api/select) (2/20 %)
   - ✅ Component 9 - [Ion-input](https://ionicframework.com/docs/api/input) (2/20 %)
-  - ✅ Component 10 - [Ion-modal](https://ionicframework.com/docs/api/modal)(2/20 %)
+  - ✅ Component 10 - [Ion-modal](https://ionicframework.com/docs/api/modal) (2/20 %)
 - ✅ Photos (10%)
   - ✅ Take photos with device's camera. (5/10 %)
   - ✅ Handle photos from frontend (CRUD). (2,5/10 %)
   - ✅ Store the photo in the backend (CRUD). (2,5/10 %)
 - ⬜ Auth (10%)
   - ⬜ Implement basic authentication (10/10 %)
+    - 🚧 WIP in feature-auth branch
 
 ## 🏃🏻‍♀️ 1. Getting Started
 
@@ -123,14 +124,27 @@ module.exports = {
 };
 ```
 
-8️⃣ Init node in the backend
+8️⃣ Create an .env in your backend root;
+
+```bash
+JWT_SECRET=Y0u_4r3-mY~L0v3lyS3cr3t!4r3ntY0u? #👈 Here your secret
+
+MYSQL_DATABASE=malvariscoDB     #👈 Your DB
+MYSQL_USER=root                 #👈 Your user
+MYSQL_PASSWORD=                 #👈 Your password
+MYSQL_ROOT_PASSWORD=            #👈 Your super admin password, without steroids
+
+DB_HOST=localhost
+
+NODE_ENV=development
+```
+
+9️⃣ Install node modules in the backend and in the frontend
 
 ```powershell
 cd backend/
 npm install
 ```
-
-9️⃣ Init node in the frontend
 
 ```powershell
 cd ../frontend/
